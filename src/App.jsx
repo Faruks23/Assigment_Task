@@ -2,17 +2,20 @@ import React, { useState } from "react";
 
 const App = () => {
   const [bottomPosition, setBottomPosition] = useState(140);
+   const [leftPosition, setLeftPosition] = useState(140);
   const [bottomDisable, setBottomDisable] = useState(false);
   const [topDisable, setTopDisable] = useState(false);
   const [leftDisable, setLeftDisable] = useState(false);
+  const [RightDisable, setRightDisable] = useState(false);
   
-  const [leftPosition, setLeftPosition] = useState(140)
+
 
 
   // top position
   const handleMoveTop = (value) => {
     setBottomDisable(false);
     setLeftDisable(false);
+    setRightDisable(false);
     if (bottomPosition == 310) {
       setTopDisable(true);
       setBottomDisable(false);
@@ -25,8 +28,11 @@ const App = () => {
 
   // bottom button position
   const handleMoveBottom = (value) => {
+
+    setRightDisable(false)
     setLeftDisable(false)
     setTopDisable(false);
+
     if (bottomPosition == 0) {
       setBottomDisable(true);
       setTopDisable(false);
@@ -38,18 +44,36 @@ const App = () => {
     }
   };
 
-  
+
   // move to left position
   const handleToLeft = (value) => {
+    setRightDisable(false);
     setBottomDisable(false);
     setTopDisable(false)
- if (leftPosition == 310) {
-   setLeftDisable(true);
+    if (leftPosition ==10) {
+  
+    setLeftDisable(true);
   ;
  } else {
-   setBottomPosition(leftDisable + value);
+     
+       setLeftPosition(leftPosition - value);
  }
     
+  }
+
+  // move to right position
+
+  const handleMoveRight = (value) => {
+     setRightDisable(false);
+     setBottomDisable(false);
+     setTopDisable(false);
+     if (leftPosition == 310) {
+       setRightDisable(true);
+     } else {
+       setLeftPosition(leftPosition+value);
+     }
+    
+     
   }
 
   return (
@@ -62,7 +86,7 @@ const App = () => {
         top
       </button>
       <button
-        disabled={topDisable}
+        disabled={leftDisable}
         onClick={() => handleToLeft(10)}
         className="btn"
       >
@@ -72,7 +96,7 @@ const App = () => {
         <div
           id="mid"
           className="mid w-20 absolute h-20 bg-red-400"
-          style={{ bottom: `${bottomPosition}px`,left:`${leftPosition}px`}}
+          style={{ bottom:`${bottomPosition}px`, left:`${leftPosition}px`,}}
         ></div>
 
       </div>
@@ -82,6 +106,13 @@ const App = () => {
         className="btn"
       >
         bottom
+      </button>
+      <button
+        disabled={RightDisable}
+        onClick={() => handleMoveRight(10)}
+        className="btn"
+      >
+        right
       </button>
     </div>
   );
