@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 const App = () => {
-  const [bottomPosition, setBottomPosition] = useState(140);
-   const [leftPosition, setLeftPosition] = useState(140);
+  const [TopPosition, setTopPosition] = useState(0);
+   const [leftPosition, setLeftPosition] = useState(0);
   const [bottomDisable, setBottomDisable] = useState(false);
-  const [topDisable, setTopDisable] = useState(false);
-  const [leftDisable, setLeftDisable] = useState(false);
+  const [topDisable, setTopDisable] = useState(true);
+  const [leftDisable, setLeftDisable] = useState(true);
   const [RightDisable, setRightDisable] = useState(false);
   
 
@@ -16,12 +16,12 @@ const App = () => {
     setBottomDisable(false);
     setLeftDisable(false);
     setRightDisable(false);
-    if (bottomPosition == 310) {
+    if (TopPosition <10) {
       setTopDisable(true);
       setBottomDisable(false);
      
     } else {
-      setBottomPosition(bottomPosition + value);
+      setTopPosition(TopPosition-value);
     }
   };
 
@@ -30,17 +30,20 @@ const App = () => {
   const handleMoveBottom = (value) => {
 
     setRightDisable(false)
-    setLeftDisable(false)
+    
     setTopDisable(false);
+    if (leftPosition < 10) {
+      setLeftDisable(true);
+    }
 
-    if (bottomPosition == 0) {
+    if (TopPosition >310) {
       setBottomDisable(true);
       setTopDisable(false);
-      if (bottomPosition > 20) {
+      if (TopPosition > 20) {
         setTopDisable(false);
       }
     } else {
-      setBottomPosition(bottomPosition - value);
+      setTopPosition(TopPosition + value);
     }
   };
 
@@ -50,7 +53,7 @@ const App = () => {
     setRightDisable(false);
     setBottomDisable(false);
     setTopDisable(false)
-    if (leftPosition ==10) {
+    if (leftPosition <10) {
   
     setLeftDisable(true);
   ;
@@ -66,7 +69,8 @@ const App = () => {
   const handleMoveRight = (value) => {
      setRightDisable(false);
      setBottomDisable(false);
-     setTopDisable(false);
+    setTopDisable(false);
+    setLeftDisable(false)
      if (leftPosition == 310) {
        setRightDisable(true);
      } else {
@@ -96,7 +100,7 @@ const App = () => {
         <div
           id="mid"
           className="mid w-20 absolute h-20 bg-red-400"
-          style={{ bottom:`${bottomPosition}px`, left:`${leftPosition}px`,}}
+          style={{ top:`${TopPosition}px`, left:`${leftPosition}px`,}}
         ></div>
 
       </div>
